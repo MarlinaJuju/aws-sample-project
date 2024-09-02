@@ -1,0 +1,44 @@
+{
+  "function": {
+    "tasksLambda": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "awssampleprojectdynamoDB"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_tasksLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "tasksLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_tasksLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "tasksLambda"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "awssampleprojectdynamoDB": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    }
+  }
+}
