@@ -12,14 +12,17 @@
       "AmplifyAppId": "drifpnlewr1pv"
     },
     "categories": {
-      "function": {
-        "tasksLambda": {
-          "deploymentBucketName": "amplify-awssampleproject-dev-820cf-deployment",
-          "s3Key": "amplify-builds/tasksLambda-33374f6f495055615745-build.zip"
-        }
-      },
       "storage": {
         "awssampleprojectdynamoDB": {}
+      },
+      "function": {
+        "tasksFunction": {
+          "deploymentBucketName": "amplify-awssampleproject-dev-820cf-deployment",
+          "s3Key": "amplify-builds/tasksFunction-4d514c34472f47786c6f-build.zip"
+        }
+      },
+      "api": {
+        "awssampleproject": {}
       }
     }
   }

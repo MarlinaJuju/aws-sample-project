@@ -23,10 +23,6 @@
     "storageawssampleprojectdynamoDBArn": {
       "Type": "String",
       "Default": "storageawssampleprojectdynamoDBArn"
-    },
-    "storageawssampleprojectdynamoDBStreamArn": {
-      "Type": "String",
-      "Default": "storageawssampleprojectdynamoDBArn"
     }
   },
   "Conditions": {
@@ -59,12 +55,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "tasksLambda",
+            "tasksFunction",
             {
               "Fn::Join": [
                 "",
                 [
-                  "tasksLambda",
+                  "tasksFunction",
                   "-",
                   {
                     "Ref": "env"
@@ -101,12 +97,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "awssampleprojectLambdaRole44afd4ba",
+            "awssampleprojectLambdaRole29ae2205",
             {
               "Fn::Join": [
                 "",
                 [
-                  "awssampleprojectLambdaRole44afd4ba",
+                  "awssampleprojectLambdaRole29ae2205",
                   "-",
                   {
                     "Ref": "env"
@@ -172,62 +168,37 @@
                   }
                 ]
               }
-            }
-          ]
-        }
-      }
-    },
-    "awssampleprojectdynamoDBTriggerPolicy": {
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ],
-      "Type": "AWS::IAM::Policy",
-      "Properties": {
-        "PolicyName": "lambda-trigger-policy-awssampleprojectdynamoDB",
-        "Roles": [
-          {
-            "Ref": "LambdaExecutionRole"
-          }
-        ],
-        "PolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
+            },
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:DescribeStream",
-                "dynamodb:GetRecords",
-                "dynamodb:GetShardIterator",
-                "dynamodb:ListStreams"
+                "dynamodb:DescribeTable",
+                "dynamodb:GetItem",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem"
               ],
               "Resource": [
                 {
-                  "Ref": "storageawssampleprojectdynamoDBStreamArn"
+                  "Ref": "storageawssampleprojectdynamoDBArn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storageawssampleprojectdynamoDBArn"
+                      },
+                      "index/*"
+                    ]
+                  ]
                 }
               ]
             }
           ]
         }
-      }
-    },
-    "awssampleprojectdynamoDBTrigger": {
-      "Type": "AWS::Lambda::EventSourceMapping",
-      "DependsOn": [
-        "awssampleprojectdynamoDBTriggerPolicy"
-      ],
-      "Properties": {
-        "BatchSize": 100,
-        "Enabled": true,
-        "EventSourceArn": {
-          "Ref": "storageawssampleprojectdynamoDBStreamArn"
-        },
-        "FunctionName": {
-          "Fn::GetAtt": [
-            "LambdaFunction",
-            "Arn"
-          ]
-        },
-        "StartingPosition": "LATEST"
       }
     }
   },

@@ -1,0 +1,12 @@
+projects:
+  awssampleproject:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - taskApi
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: tasksApi
+        docsFilePath: .

@@ -20,6 +20,8 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "aws-amplify": "^6.5.3"
+    "aws-amplify": "^6.5.3",
+    "aws-sdk": "^2.1687.0",
+    "graphql": "^15.9.0"
   }
 }

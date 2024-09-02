@@ -1,13 +1,34 @@
 {
+  "api": {
+    "awssampleproject": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            },
+            "authenticationType": "API_KEY"
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
   "function": {
-    "tasksLambda": {
+    "tasksFunction": {
       "build": true,
       "dependsOn": [
         {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
           "attributes": [
             "Name",
-            "Arn",
-            "StreamArn"
+            "Arn"
           ],
           "category": "storage",
           "resourceName": "awssampleprojectdynamoDB"
@@ -18,19 +39,19 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_tasksLambda_deploymentBucketName": {
+    "AMPLIFY_function_tasksFunction_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "tasksLambda"
+          "resourceName": "tasksFunction"
         }
       ]
     },
-    "AMPLIFY_function_tasksLambda_s3Key": {
+    "AMPLIFY_function_tasksFunction_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "tasksLambda"
+          "resourceName": "tasksFunction"
         }
       ]
     }
